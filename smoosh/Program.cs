@@ -36,21 +36,24 @@ namespace ConsoleApplication
         public static int[] smoosh(int[] ints)
         {
             int inputLength = ints.Length;
+            int i = 0;
 
-            for (int i = 0; i < inputLength - 1; i++)
+            while ((i < inputLength - 1) && (ints[i] != -1))
             {
-                int k = ints[i];
-                Console.WriteLine(k);
                 // if duplicate is found
                 if (ints[i] == ints[i + 1])
                 {
-                    for (int j = i; j < (inputLength - 1); j++)
+                    for (int j = i; j < inputLength - 1; j++)
                     {
                         ints[j] = ints[j + 1];
                     }
-
                     ints[inputLength - 1] = -1;
                 }
+                else
+                {
+                  i++;
+                }
+
             }
             return ints;
         }

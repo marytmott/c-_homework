@@ -24,7 +24,10 @@ namespace ConsoleApplication
                 testList.Add(num);
             }
 
+            // int tailNum = testList.Tail.Num;
+
             MyLinkedList.squish(testList);
+            // Console.WriteLine(tailNum);
         }
     }
 
@@ -133,6 +136,8 @@ namespace ConsoleApplication
                 }
                 nextNode = currNode.Next;
             }
+            // set tail
+            list.Tail = nextNode;
 
             forEach(list);
         }

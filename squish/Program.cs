@@ -19,19 +19,10 @@ namespace ConsoleApplication
             int[] nums = {0, 0, 0, 0, 1, 1, 0, 0, 0, 3, 3, 3, 1, 1, 0};
             MyLinkedList testList = new MyLinkedList();
 
-
             foreach(int num in nums)
             {
                 testList.Add(num);
             }
-
-            // System.Type type = testList.GetType();
-            // Console.WriteLine(testList);
-            // foreach(int num in testList)
-            // {
-            //     int number = num.Num;
-            //     Console.WriteLine(number);
-            // }
 
             MyLinkedList.squish(testList);
         }
@@ -97,48 +88,6 @@ namespace ConsoleApplication
         // these should be modifiable only by this class
 
         // does this need to be public or private or what??
-        public class Node
-        {
-          // fields
-          int num;
-          Node next;
-
-          // properties
-          public int Num
-          {
-              get
-              {
-                  return num;
-              }
-              set
-              {
-                  num = value;
-              }
-          }
-          public Node Next
-          {
-              get
-              {
-                  return next;
-              }
-              set
-              {
-                  next = value;
-              }
-          }
-
-          // destructor -- TODO!
-          // ~Node()
-          // {
-
-          // }
-
-          // constructor
-          public Node(int number)
-          {
-              num = number;
-          }
-        }
 
         // add new val to node
         public Node Add(int num)
@@ -159,65 +108,91 @@ namespace ConsoleApplication
             return newNode;
         }
 
+
         public static void squish(MyLinkedList list)
         {
             // Fill in your solution here.
-            // get head, traverse
-            // if val is same, remove link, update link (temp var)
-            // deconstruct node
-
-            // bool type = list.GetType() == typeof(MyLinkedList);
-            // Console.WriteLine(list);
-
-            // check for null?
             Node currNode = list.Head;
             Node nextNode = currNode.Next;
             int i = 0;
 
-            // if (currNode == null) {
-            //   Console.WriteLine("head is null");
-            //   return;
-            // }
-
-            while(i < list.Length - 1)
+            while((i < list.Length - 1) && (currNode.Next != null))
             {
-                // int currNum = currNode.Num;
-                // int nextNum = nextNode.Num;
+                int currNum = currNode.Num;
+                int nextNum = nextNode.Num;
 
-                // Console.WriteLine(currNum);
-                // Console.WriteLine(nextNum);
-
-                if (currNode.Num == nextNode.Num)
+                if (currNum == nextNum)
                 {
-
-                    // // Node  = nextNode.Next;
-                    Node connectOverNode = nextNode.Next;
-                    // currNode.Next = connectOverNode;
-                //     // need to do deconstruct
-                    Console.WriteLine(connectOverNode);
+                    currNode.Next = nextNode.Next;
+                    list.Length--;
                 }
                 else
                 {
                     i++;
+                    currNode = currNode.Next;
                 }
-
-                currNode = nextNode;
                 nextNode = currNode.Next;
             }
-            Console.WriteLine("what");
 
-            Node currNodeEach = list.Head;
+            forEach(list);
+        }
+
+        public static void forEach(MyLinkedList list)
+        {
             // to show squished list
-            for (int j = 0; j < list.Length; j++)
-            {
+            Node currNodeEach = list.Head;
 
+            for (int i = 0; i < list.Length; i++)
+            {
                 int nodeVal = currNodeEach.Num;
-                Console.WriteLine("Curr Node Val:" + nodeVal);
+                Console.WriteLine("Value at Node {0}: {1}", i, nodeVal);
                 currNodeEach = currNodeEach.Next;
             }
         }
     }
 
+    public class Node
+    {
+        // fields
+        int num;
+        Node next = null;
+
+        // properties
+        public int Num
+        {
+            get
+            {
+                return num;
+            }
+            set
+            {
+                num = value;
+            }
+        }
+
+        public Node Next
+        {
+            get
+            {
+                return next;
+            }
+            set
+            {
+                next = value;
+            }
+        }
+        // destructor -- TODO!
+        // ~Node()
+        // {
+
+        // }
+
+        // constructor
+        public Node(int number)
+        {
+            num = number;
+        }
+    }
 }
 
 // fields

@@ -38,6 +38,9 @@ namespace ConsoleApplication
             Console.WriteLine(origLength);
 
             MyLinkedList.twin(testList);
+
+            // int tailNum = testList.Tail.Num;
+            // Console.WriteLine(tailNum);
         }
     }
 
@@ -109,41 +112,46 @@ namespace ConsoleApplication
         }
 
         // makes ref nodes only
-        public void Double(Node node)
-        {
+        // public void Copies(Node node)
+        // {
 
-            // new node
-            // Node copy1 = new Node();
-            // Node copy2 = new Node();
+        //     // new node
+        //     Node copy1 = new Node();
+        //     Node copy2 = new Node();
 
-            // Dictionary<string, object> copies = new Dictionary<string, object>;
-            // copies.Add("copy1", copy1);
-            // copies.Add("copy2", copy2)
+        //     Dictionary<string, object> copies = new Dictionary<string, object>;
+        //     copies.Add("copy1", copy1);
+        //     copies.Add("copy2", copy2
 
-            // do it twice for every node
-            for (var j = 0; j < 2; j++)
-            {
-                // Console.WriteLine("copy {0}", j + 1);
-                Node copy = new Node();
-                copy.CopyOf = node;
-                this.length++;
 
-                // if there is head node
-                if (this.head != null)
-                {
-                    this.tail.Next = copy;
-                }
-                // set new head if none
-                else
-                {
-                    this.head = copy;
-                }
-                this.tail = copy;
+        //         copy1.CopyOf = currNode;
+        //         copy2.CopyOf = currNode;
 
-                // add to dictionary
+        //     // do it twice for every node
+        //     for (var j = 0; j < 2; j++)
+        //     {
+        //         // Console.WriteLine("copy {0}", j + 1);
+        //         Node copy = new Node();
+        //         copy.CopyOf = node;
 
-            }
-        }
+
+
+        //         // if there is head node
+        //         // if (this.head != null)
+        //         // {
+        //         //     this.tail.Next = copy;
+        //         // }
+        //         // // set new head if none
+        //         // else
+        //         // {
+        //         //     this.head = copy;
+        //         // }
+        //         // this.tail = copy;
+
+        //         // add to dictionary
+
+        //     }
+        // }
 
         // this should be a to string thang
         // just prints out the vals of the linked list
@@ -175,19 +183,44 @@ namespace ConsoleApplication
         /// </summary>
         public static void twin(MyLinkedList list)
         {
+
             // Fill in your solution here.
-            MyLinkedList output = new MyLinkedList();
-
             Node currNode = list.Head;
+            Node temp = null;
+            int listLength = list.Length;
 
-            // go through the list
-            for (var i = 0; i < list.Length; i++)
+            // DRY UP!
+            for (int i = 0; i < listLength; i += 2)
             {
-                output.Double(currNode);
+                // Node copy1, copy2 = MyLinkedList.Copies(currNode);
+
+                Node copy1 = new Node();
+                Node copy2 = new Node();
+
+                copy1.CopyOf = currNode;
+                copy2.CopyOf = currNode;
+
+                // check for head
+                if (currNode != list.Head)
+                {
+                    temp.Next = copy1;
+                }
+                else
+                {
+                    list.Head = copy1;
+                }
+
+                copy1.Next = copy2;
                 currNode = currNode.Next;
+                temp = copy2;
+                list.Length++;
+                listLength = list.Length;
             }
 
-            MyLinkedList.forEach(output);
+            // set tail
+            list.Tail = temp;
+
+            MyLinkedList.forEach(list);
         }
     }
 
